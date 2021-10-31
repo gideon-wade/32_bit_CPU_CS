@@ -1,0 +1,13 @@
+add xD, xL, xR      // xD = xL + xR
+mul xD, xL, xR      // xD = xL * xR
+addi xD, xL, c      // xD = xL + c (c is a constant)
+subi xD, xL, c      // xD = xL - c (c is a constant)
+load xD, xA         // xD = mem[xA]
+store xA, xD        // mem[xA] = xD
+beq xL, xR, label   // if(xL == xR) then ProCount = label
+bneq xL, xR, label  // if(xL != xR) then ProCount = label
+blt xL, xR, label   // if(xL < xR) then ProCount = label
+goto label          // ProCount = label
+
+
+
