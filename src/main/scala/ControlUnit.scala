@@ -92,24 +92,32 @@ class ControlUnit extends Module {
       io.Branch := true.B
       io.MemRead := false.B
       io.MemtoReg := false.B
-      io.ALUOp := "b0110".U
-      io.MemWrite := true.B
+      io.ALUOp := "b0111".U
+      io.MemWrite := false.B
       io.ALUSrc := true.B
       io.writeEnable := false.B
     }
-    is("b1000".U){ //goto
+    is("b1000".U){ //blt
+      io.RegDst := false.B
+      io.Branch := true.B
+      io.MemRead := false.B
+      io.MemtoReg := false.B
+      io.ALUOp := "b1000".U
+      io.MemWrite := false.B
+      io.ALUSrc := true.B
+      io.writeEnable := false.B
+    }
+    is("b1001".U){ //goto
       io.RegDst := false.B
       io.Branch := true.B
       io.MemRead := false.B
       io.MemtoReg := false.B
       io.ALUOp := "b1001".U
-      io.MemWrite := true.B
+      io.MemWrite := false.B
       io.ALUSrc := true.B
-      io.writeEnable := true.B
+      io.writeEnable := false.B
     }
-    is("b1001".U){
 
-    }
     is("b1010".U){
 
     }
