@@ -117,8 +117,7 @@ class ControlUnit extends Module {
       io.ALUSrc := true.B
       io.writeEnable := false.B
     }
-
-    is("b1010".U){
+    is("b1010".U){ //end
 
     }
   }

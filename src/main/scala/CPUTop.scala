@@ -39,7 +39,17 @@ class CPUTop extends Module {
     ("b0011" +
       "000000001" +
       "00000" +
-      "00000011111111").U(32.W) //addi: R1 = R0 + 255
+      "00000011111111").U(32.W), //addi: R1 = R0 + 255
+    ("b0100" +
+      "000000010" +
+      "00001" +
+      "00000011111111".U(32.W)), //subi: R2 = R1 - 255
+    ("b0000" +
+      "000000011" +
+      "00001" +
+      "00010" +
+      "00000" +
+      "0000").U(32.W) //add: R3 = R1 + R2
   )
 
   //This signals are used by the tester for loading the program to the program memory, do not touch
