@@ -35,6 +35,13 @@ class CPUTop extends Module {
   //Continue here with your connections
   ////////////////////////////////////////////
 
+  val program = Array(
+    ("b0011" +
+      "000000001" +
+      "00000" +
+      "00000011111111").U(32.W) //addi: R1 = R0 + 255
+  )
+
   //This signals are used by the tester for loading the program to the program memory, do not touch
   programMemory.io.testerAddress := io.testerProgMemAddress
   io.testerProgMemDataRead := programMemory.io.testerDataRead

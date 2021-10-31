@@ -9,6 +9,7 @@ class ALU extends Module {
     val ALUOp = Input(UInt(4.W))
     val xD = Output(UInt(32.W)) //ALU result
     val status = Output(Bool())
+    val c = Input(UInt(14.W))
   })
 
   //Implement this module here
@@ -24,11 +25,11 @@ class ALU extends Module {
       io.status := false.B
     }
     is("b0010".U) { //addi
-      io.xD := io.xL + 1.U
+      io.xD := io.xL + io.c
       io.status := false.B
     }
     is("b0011".U) { //subi
-      io.xD := io.xL - 2.U
+      io.xD := io.xL - io.c
       io.status := false.B
     }
     is("b0100".U){ //load
