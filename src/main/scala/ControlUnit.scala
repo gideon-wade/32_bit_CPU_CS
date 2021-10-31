@@ -57,7 +57,7 @@ class ControlUnit extends Module {
       io.ALUSrc := true.B
       io.writeEnable := true.B
     }
-    is("b0100".U){//load
+    is("b0100".U){ //load
       io.RegDst := true.B
       io.Branch := false.B
       io.MemRead := true.B
@@ -67,7 +67,7 @@ class ControlUnit extends Module {
       io.ALUSrc := true.B
       io.writeEnable := true.B
     }
-    is("b0101".U){//store
+    is("b0101".U){ //store
       io.RegDst := true.B
       io.Branch := false.B
       io.MemRead := true.B
@@ -77,8 +77,18 @@ class ControlUnit extends Module {
       io.ALUSrc := true.B
       io.writeEnable := true.B
     }
-    is("b0110".U){//beq
-      io.RegDst := true.B
+    is("b0110".U){ //beq
+      io.RegDst := false.B
+      io.Branch := true.B
+      io.MemRead := false.B
+      io.MemtoReg := false.B
+      io.ALUOp := "b0110".U
+      io.MemWrite := false.B
+      io.ALUSrc := true.B
+      io.writeEnable := false.B
+    }
+    is("b0111".U){ //bneq
+      io.RegDst := false.B
       io.Branch := true.B
       io.MemRead := false.B
       io.MemtoReg := false.B
@@ -87,17 +97,7 @@ class ControlUnit extends Module {
       io.ALUSrc := true.B
       io.writeEnable := false.B
     }
-    is("b0111".U){//bneq
-      io.RegDst := true.B
-      io.Branch := true.B
-      io.MemRead := false.B
-      io.MemtoReg := false.B
-      io.ALUOp := "b0110".U
-      io.MemWrite := true.B
-      io.ALUSrc := true.B
-      io.writeEnable := false.B
-    }
-    is("b1000".U){//goto
+    is("b1000".U){ //goto
       io.RegDst := false.B
       io.Branch := true.B
       io.MemRead := false.B
