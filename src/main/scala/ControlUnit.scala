@@ -14,7 +14,6 @@ class ControlUnit extends Module {
     var ALUSrc = Output(Bool())
     var writeEnable = Output(Bool())
   })
-//Wade be dum dum
   //Implement this module here
   switch(io.opcode){
     is("b0000".U){ //add
