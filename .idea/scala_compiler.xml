@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ScalaCompilerConfiguration">
-    <profile name="bsp 1" modules="codea2,root-32_bit_cpu,root-32_bit_cpu_cs">
+    <profile name="bsp 1" modules="32_bit_CPU_CS.root-32_bit_cpu_cs,codea2,root-32_bit_cpu,root-32_bit_cpu_cs">
       <parameters>
         <parameter value="-Xsource:2.11" />
       </parameters>
