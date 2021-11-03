@@ -34,11 +34,30 @@ class CPUTop extends Module {
 
   programCounter.io.run := io.run
   programMemory.io.address := programCounter.io.programCounter
-  controlUnit.io.opcode := programMemory.io.address(32, 28)
-  registerFile.io.aSel := programMemory.io.address(28, 23)
-  registerFile.io.bSel := programMemory.io.address(23, 18)
-  when(controlUnit.io.RegDst){
-    registerFile.io.writeSel := programMemory.io.address(18, 8)
+  when(!io.done){
+    controlUnit.io.opcode := programMemory.io.address(32, 28)
+    registerFile.io.aSel := programMemory.io.address(28, 23)
+    registerFile.io.bSel := programMemory.io.address(23, 18)
+    when(controlUnit.io.RegDst && controlUnit.io.writeEnable){
+      registerFile.io.writeSel := programMemory.io.address(18, 8)
+    } .otherwise{
+      registerFile.io.writeSel := programMemory.io.address(23,18) //S-EXTEND
+    }
+
+    when(controlUnit.io.ALUSrc){
+      alu.io.c := programMemory.io.address(13, 0) //S-EXTEND
+    } .otherwise{
+      alu.io.xR := registerFile.io.b
+    }
+    alu.io.xL := registerFile.io.a
+    alu.io.ALUOp := controlUnit.io.ALUOp
+    when(controlUnit.io.MemWrite && controlUnit.io.MemRead){
+      dataMemory.io.address := alu.io.xD
+    }
+    when(controlUnit.io.Branch && alu.io.status){
+      programCounter.io.jump := true.B
+    }
+
   }
 
 

@@ -5,15 +5,16 @@ circuit ProgramCounter :
     input reset : UInt<1>
     output io : {flip stop : UInt<1>, flip jump : UInt<1>, flip run : UInt<1>, flip programCounterJump : UInt<16>, programCounter : UInt<16>}
     
+    io.programCounter <= UInt<1>("h00") @[ProgramCounter.scala 12:21]
     reg programCounterNext : UInt<16>, clock with : (reset => (reset, UInt<16>("h00"))) @[ProgramCounter.scala 14:35]
     node _T = eq(io.run, UInt<1>("h00")) @[ProgramCounter.scala 15:9]
     when _T : @[ProgramCounter.scala 15:17]
       programCounterNext <= io.programCounter @[ProgramCounter.scala 16:24]
       skip @[ProgramCounter.scala 15:17]
-    else : @[ProgramCounter.scala 17:23]
-      when io.stop : @[ProgramCounter.scala 17:23]
+    else : @[ProgramCounter.scala 17:24]
+      when io.stop : @[ProgramCounter.scala 17:24]
         programCounterNext <= io.programCounter @[ProgramCounter.scala 18:24]
-        skip @[ProgramCounter.scala 17:23]
+        skip @[ProgramCounter.scala 17:24]
       else : @[ProgramCounter.scala 19:46]
         node _T_1 = eq(io.stop, UInt<1>("h00")) @[ProgramCounter.scala 19:25]
         node _T_2 = and(io.run, _T_1) @[ProgramCounter.scala 19:22]

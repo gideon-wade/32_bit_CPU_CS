@@ -18,7 +18,7 @@ module ProgramCounter(
   wire  _T_4 = _T_2 & _T_3; // @[ProgramCounter.scala 19:34]
   wire [15:0] _T_6 = io_programCounter + 16'h1; // @[ProgramCounter.scala 20:45]
   wire  _T_9 = _T_2 & io_jump; // @[ProgramCounter.scala 21:34]
-  assign io_programCounter = programCounterNext; // @[ProgramCounter.scala 24:21]
+  assign io_programCounter = programCounterNext; // @[ProgramCounter.scala 12:21 ProgramCounter.scala 24:21]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif

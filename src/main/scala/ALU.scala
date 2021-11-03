@@ -9,7 +9,7 @@ class ALU extends Module {
     val ALUOp = Input(UInt(4.W))
     val xD = Output(UInt(32.W)) //ALU result
     val status = Output(Bool ())
-    val c = Input(UInt(14.W))
+    val c = Input(UInt(13.W))
   })
 
   //Implement this module here
