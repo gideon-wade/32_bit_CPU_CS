@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/32_bit_CPU_CS.root-32_bit_cpu_cs.iml" filepath="$PROJECT_DIR$/.idea/modules/32_bit_CPU_CS.root-32_bit_cpu_cs.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/project.root-32_bit_cpu_cs-build.iml" filepath="$PROJECT_DIR$/.idea/modules/project.root-32_bit_cpu_cs-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/root-32_bit_cpu.iml" filepath="$PROJECT_DIR$/.idea/modules/root-32_bit_cpu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/root-32_bit_cpu-build.iml" filepath="$PROJECT_DIR$/.idea/modules/root-32_bit_cpu-build.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/root-32_bit_cpu_cs.iml" filepath="$PROJECT_DIR$/.idea/modules/root-32_bit_cpu_cs.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/root-32_bit_cpu_cs-build.iml" filepath="$PROJECT_DIR$/.idea/modules/root-32_bit_cpu_cs-build.iml" />
     </modules>
