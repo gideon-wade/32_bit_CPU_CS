@@ -4,8 +4,8 @@ import chisel3.util._
 class RegisterFile extends Module {
   val io = IO(new Bundle {
     //Define the module interface here (inputs/outputs)
-    var aSel = Input(UInt (4.W))
-    var bSel = Input(UInt (4.W))
+    var aSel = Input(UInt (5.W))
+    var bSel = Input(UInt (5.W))
     var writeData = Input(UInt (32.W))
     var writeSel = Input(UInt (4.W))
     var a = Output(UInt (32.W))

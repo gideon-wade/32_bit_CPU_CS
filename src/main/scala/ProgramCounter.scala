@@ -9,7 +9,7 @@ class ProgramCounter extends Module {
     val programCounterJump = Input(UInt(16.W))
     val programCounter = Output(UInt(16.W))
   })
-
+  io.programCounter := 0.U
   //Implement this module here (respect the provided interface, since it used by the tester)
   val programCounterNext = RegInit(0.U(16.W))
   when (!io.run){

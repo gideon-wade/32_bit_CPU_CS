@@ -19,6 +19,9 @@ class CPUTop extends Module {
     val testerProgMemDataWrite = Input(UInt (32.W))
   })
 
+
+  io.testerProgMemDataRead := 0.U
+
   //Creating components
   val programCounter = Module(new ProgramCounter())
   val dataMemory = Module(new DataMemory())
@@ -28,8 +31,18 @@ class CPUTop extends Module {
   val alu = Module(new ALU())
 
   //Connecting the modules
-  //programCounter.io.run := io.run
-  //programMemory.io.address := programCounter.io.programCounter
+
+  programCounter.io.run := io.run
+  programMemory.io.address := programCounter.io.programCounter
+  controlUnit.io.opcode := programMemory.io.address(32, 28)
+  registerFile.io.aSel := programMemory.io.address(28, 23)
+  when(controlUnit.io.RegDst){
+
+  } .otherwise{
+    registerFile.io.bSel := programMemory.io.address(23, 18)
+  }
+
+
 
   ////////////////////////////////////////////
   //Continue here with your connections

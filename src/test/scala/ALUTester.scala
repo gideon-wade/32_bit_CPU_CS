@@ -7,28 +7,30 @@ class ALUTester(dut: ALU) extends PeekPokeTester(dut) {
   poke(dut.io.xD, 1)
   poke(dut.io.xL, 3)
   poke(dut.io.xR, 2)
-  poke(dut.io.sel, 0)
+  poke(dut.io.ALUOp, 0)
   step(5)
 
   //Hold for 5 clock cycles
   poke(dut.io.xD, 1)
   poke(dut.io.xL, 3)
   poke(dut.io.xR, 2)
-  poke(dut.io.sel, 1)
+  poke(dut.io.ALUOp, 1)
   step(5)
 
   //Hold for 5 clock cycles
   poke(dut.io.xD, 1)
   poke(dut.io.xL, 3)
   poke(dut.io.xR, 2)
-  poke(dut.io.sel, 2)
+  poke(dut.io.c,30)
+  poke(dut.io.ALUOp, 2)
   step(5)
 
   //Hold for 5 clock cycles
   poke(dut.io.xD, 1)
   poke(dut.io.xL, 3)
   poke(dut.io.xR, 2)
-  poke(dut.io.sel, 3)
+  poke(dut.io.c,30)
+  poke(dut.io.ALUOp, 3)
   step(5)
 
 }

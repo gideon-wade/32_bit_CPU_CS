@@ -4,16 +4,25 @@ import chisel3.util._
 class ControlUnit extends Module {
   val io = IO(new Bundle {
     //Define the module interface here (inputs/outputs)
-    var opcode = Input(UInt (4.W))
-    var RegDst = Output(Bool())
-    var Branch = Output(UInt (28.W))
-    var MemRead = Output(Bool())
-    var MemtoReg = Output(Bool())
-    var ALUOp = Output(UInt (4.W))
-    var MemWrite = Output(Bool())
-    var ALUSrc = Output(Bool())
-    var writeEnable = Output(Bool())
+    val opcode = Input(UInt (4.W))
+    val RegDst = Output(Bool())
+    val Branch = Output(Bool())
+    val MemRead = Output(Bool())
+    val MemtoReg = Output(Bool())
+    val ALUOp = Output(UInt (4.W))
+    val MemWrite = Output(Bool())
+    val ALUSrc = Output(Bool())
+    val writeEnable = Output(Bool())
   })
+
+  io.RegDst := false.B
+  io.Branch := false.B
+  io.MemRead := false.B
+  io.MemtoReg := false.B
+  io.ALUOp := false.B
+  io.MemWrite := false.B
+  io.ALUSrc := false.B
+  io.writeEnable := false.B
   //Implement this module here
   switch(io.opcode){
     is("b0000".U){ //add

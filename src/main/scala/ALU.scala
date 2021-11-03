@@ -8,13 +8,13 @@ class ALU extends Module {
     val xL = Input(UInt(32.W))
     val ALUOp = Input(UInt(4.W))
     val xD = Output(UInt(32.W)) //ALU result
-    val status = Output(Bool())
+    val status = Output(Bool ())
     val c = Input(UInt(14.W))
   })
 
   //Implement this module here
   io.xD := 0.U
-
+  io.status := false.B
   switch(io.ALUOp) {
     is("b0000".U){ //add
       io.xD := io.xL + io.xR

@@ -3,7 +3,17 @@
     "class":"firrtl.transforms.CombinationalPath",
     "sink":"~ALU|ALU>io_xD",
     "sources":[
-      "~ALU|ALU>io_sel",
+      "~ALU|ALU>io_ALUOp",
+      "~ALU|ALU>io_xL",
+      "~ALU|ALU>io_xR",
+      "~ALU|ALU>io_c"
+    ]
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~ALU|ALU>io_status",
+    "sources":[
+      "~ALU|ALU>io_ALUOp",
       "~ALU|ALU>io_xL",
       "~ALU|ALU>io_xR"
     ]
