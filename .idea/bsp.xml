@@ -6,7 +6,7 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="C:\Users\Gideon\IdeaProjects\32_bit_CPU" />
+            <option value="C:\Users\giddi\IdeaProjects\32_bit_CPU" />
           </set>
         </option>
         <option name="serverConfig" value="BspConfigFile:C:\Users\Gideon\IdeaProjects\codeA2\.bsp\sbt.json" />
