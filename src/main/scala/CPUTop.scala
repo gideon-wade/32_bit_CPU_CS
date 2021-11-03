@@ -40,10 +40,9 @@ class CPUTop extends Module {
     controlUnit.io.opcode := programMemory.io.address(32, 28)
     registerFile.io.aSel := programMemory.io.address(28, 23)
     registerFile.io.bSel := programMemory.io.address(23, 18)
-    when(controlUnit.io.RegDst && controlUnit.io.writeEnable){
+    registerFile.io.writeSel := programMemory.io.address(23,18) //S-EXTEND
+    when(controlUnit.io.RegDst){
       registerFile.io.writeSel := programMemory.io.address(18, 8)
-    } .otherwise{
-      registerFile.io.writeSel := programMemory.io.address(23,18) //S-EXTEND
     }
 
     when(controlUnit.io.ALUSrc){
