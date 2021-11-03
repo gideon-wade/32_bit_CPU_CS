@@ -127,7 +127,7 @@ class ControlUnit extends Module {
       io.writeEnable := false.B
     }
     is("b1111".U){ //end
-
+      io.done := true.B
     }
   }
 }

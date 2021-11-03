@@ -36,12 +36,11 @@ class CPUTop extends Module {
   programMemory.io.address := programCounter.io.programCounter
   controlUnit.io.opcode := programMemory.io.address(32, 28)
   registerFile.io.aSel := programMemory.io.address(28, 23)
+  registerFile.io.bSel := programMemory.io.address(23, 18)
   when(controlUnit.io.RegDst){
     registerFile.io.writeSel := programMemory.io.address(18, 8)
-
-  } .otherwise{
-    registerFile.io.bSel := programMemory.io.address(23, 18)
   }
+
 
 
 
