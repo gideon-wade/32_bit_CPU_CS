@@ -1,5 +1,6 @@
 import chisel3._
 import chisel3.util._
+import scala.util.control.Breaks.break
 
 class CPUTop extends Module {
   val io = IO(new Bundle {
@@ -19,7 +20,6 @@ class CPUTop extends Module {
     val testerProgMemDataWrite = Input(UInt (32.W))
   })
 
-
   io.testerProgMemDataRead := 0.U
   //Creating components
   val programCounter = Module(new ProgramCounter())
@@ -30,50 +30,40 @@ class CPUTop extends Module {
   val alu = Module(new ALU())
 
   //Connecting the modules
-
   programCounter.io.run := io.run
   programMemory.io.address := programCounter.io.programCounter
-  when(!io.done){
-    when(programMemory.io.address(23,28) === "b1111".U){
-      io.done := true.B
-    }
-    controlUnit.io.opcode := programMemory.io.address(32, 28)
-    registerFile.io.aSel := programMemory.io.address(28, 23)
-    registerFile.io.bSel := programMemory.io.address(23, 18)
-    registerFile.io.writeSel := programMemory.io.address(23,18) //S-EXTEND
-    when(controlUnit.io.RegDst){
-      registerFile.io.writeSel := programMemory.io.address(18, 8)
-    }
-
-    when(controlUnit.io.ALUSrc){
-      alu.io.c := programMemory.io.address(13, 0) //S-EXTEND
-    } .otherwise{
-      alu.io.xR := registerFile.io.b
-    }
-    alu.io.xL := registerFile.io.a
-    alu.io.ALUOp := controlUnit.io.ALUOp
-    when(controlUnit.io.MemWrite && controlUnit.io.MemRead){
-      dataMemory.io.address := alu.io.xD
-    }
-    when(alu.io.status){
-      programCounter.io.jump := true.B
-      programCounter.io.programCounterJump := programMemory.io.address(13, 0)
-    }
-    when(controlUnit.io.Branch){
-      programCounter.io.jump := true.B
-      programCounter.io.programCounterJump := programMemory.io.address(28, 0)
-    }
-
-  }
-
-
-
+  programCounter.io.stop:=controlUnit.io.done
 
 
 
   ////////////////////////////////////////////
   //Continue here with your connections
   ////////////////////////////////////////////
+
+  controlUnit.io.opcode := programMemory.io.instructionRead(31, 28)
+  registerFile.io.aSel := programMemory.io.instructionRead(27, 23)
+  registerFile.io.bSel := programMemory.io.instructionRead(22, 18)
+  registerFile.io.writeSel := programMemory.io.instructionRead(22,18) //S-EXTEND
+  when(controlUnit.io.RegDst){
+    registerFile.io.writeSel := programMemory.io.instructionRead(17, 8)
+  }
+  when(controlUnit.io.ALUSrc){
+    alu.io.c := programMemory.io.instructionRead(12, 0) //S-EXTEND
+  } .otherwise{
+    alu.io.xR := registerFile.io.b
+  }
+  alu.io.xL := registerFile.io.a
+  alu.io.ALUOp := controlUnit.io.ALUOp
+  when(alu.io.status && controlUnit.io.Branch){
+    programCounter.io.jump := true.B
+    programCounter.io.programCounterJump := programMemory.io.address(13, 0)
+  }
+  when(controlUnit.io.MemtoReg){
+    registerFile.io.writeData := dataMemory.io.address
+  } .otherwise{
+    registerFile.io.writeData := alu.io.xD
+  }
+
 
   //val program =
 
@@ -89,4 +79,6 @@ class CPUTop extends Module {
   dataMemory.io.testerDataWrite := io.testerDataMemDataWrite
   dataMemory.io.testerEnable := io.testerDataMemEnable
   dataMemory.io.testerWriteEnable := io.testerDataMemWriteEnable
+
+
 }
