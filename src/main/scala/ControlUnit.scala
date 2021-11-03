@@ -13,8 +13,9 @@ class ControlUnit extends Module {
     val MemWrite = Output(Bool())
     val ALUSrc = Output(Bool())
     val writeEnable = Output(Bool())
+    val done = Output(Bool())
   })
-
+  io.done := false.B
   io.RegDst := false.B
   io.Branch := false.B
   io.MemRead := false.B
@@ -125,7 +126,7 @@ class ControlUnit extends Module {
       io.ALUSrc := true.B
       io.writeEnable := false.B
     }
-    is("b1010".U){ //end
+    is("b1111".U){ //end
 
     }
   }
