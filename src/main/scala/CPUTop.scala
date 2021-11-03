@@ -21,7 +21,6 @@ class CPUTop extends Module {
 
 
   io.testerProgMemDataRead := 0.U
-
   //Creating components
   val programCounter = Module(new ProgramCounter())
   val dataMemory = Module(new DataMemory())
@@ -35,6 +34,9 @@ class CPUTop extends Module {
   programCounter.io.run := io.run
   programMemory.io.address := programCounter.io.programCounter
   when(!io.done){
+    when(programMemory.io.address(23,28) === "b1111".U){
+      io.done := true.B
+    }
     controlUnit.io.opcode := programMemory.io.address(32, 28)
     registerFile.io.aSel := programMemory.io.address(28, 23)
     registerFile.io.bSel := programMemory.io.address(23, 18)
@@ -54,8 +56,13 @@ class CPUTop extends Module {
     when(controlUnit.io.MemWrite && controlUnit.io.MemRead){
       dataMemory.io.address := alu.io.xD
     }
-    when(controlUnit.io.Branch && alu.io.status){
+    when(alu.io.status){
       programCounter.io.jump := true.B
+      programCounter.io.programCounterJump := programMemory.io.address(13, 0)
+    }
+    when(controlUnit.io.Branch){
+      programCounter.io.jump := true.B
+      programCounter.io.programCounterJump := programMemory.io.address(28, 0)
     }
 
   }

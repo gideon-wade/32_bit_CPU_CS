@@ -88,7 +88,7 @@ class ControlUnit extends Module {
     }
     is("b0110".U){ //beq
       io.RegDst := false.B
-      io.Branch := true.B
+      io.Branch := false.B
       io.MemRead := false.B
       io.MemtoReg := false.B
       io.ALUOp := "b0110".U
@@ -98,7 +98,7 @@ class ControlUnit extends Module {
     }
     is("b0111".U){ //bneq
       io.RegDst := false.B
-      io.Branch := true.B
+      io.Branch := false.B
       io.MemRead := false.B
       io.MemtoReg := false.B
       io.ALUOp := "b0111".U
@@ -108,7 +108,7 @@ class ControlUnit extends Module {
     }
     is("b1000".U){ //blt
       io.RegDst := false.B
-      io.Branch := true.B
+      io.Branch := false.B
       io.MemRead := false.B
       io.MemtoReg := false.B
       io.ALUOp := "b1000".U
