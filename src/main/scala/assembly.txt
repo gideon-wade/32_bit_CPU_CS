@@ -1,0 +1,59 @@
+1. addi R1 R0 0  	; x
+2. addi R2 R0 20 	; constant 20
+3. blt R1 R2 5		; if (x < 20)
+4. goto 56		    ; end outer-loop
+5. addi R3 R0 0  	; y
+6. addi R4 R0 20 	; constant 20
+7. blt R3 R4 9		; if(y < 20)
+8. goto 54	        ; end inner-loop
+9. mul R5 R3 R2 	; (y * 20)
+10. add R6 R1 R5	; x + (y * 20)
+11. beq R1 R0 17	; if (x == 0)
+12. beq R3 R0 19	; if (y == 0)
+13. addi R7 R0 19 	; constant 19
+14. beq R1 R7 21	; if (x == 19)
+15. beq R3 R7 23	; if (y == 19)
+16. goto 25 	  	; Processing inner pixel
+17. store R6 R0		; OUT_IMAGE[x][y] = 0
+18. goto 12 	    ; check other if-statement
+19. store R6 R0		; OUT_IMAGE[x][y] = 0
+20. goto 13 		; check other if-statement
+21. store R6 R0		; OUT_IMAGE[x][y] = 0
+22. goto 15		    ; check other if-statement
+23. store R6 R0		; OUT_IMAGE[x][y] = 0
+24. goto 16		    ; check other if-statement
+25. load R8 R6		; IN_IMAGE[x][y]
+26. bneq R8 R0 29	; if (IN_IMAGE != 0)
+27. store R8 R0 	; Black pixel
+28. goto 52		    ; end inner-loop
+		        ; White pixel, checking neighboring pixels
+29. subi R9 R1 1		; constant x - 1
+30. mul R10 R9 R5		; (x - 1) * (y * 20)
+31. load R11 R10		; IN_IMAGE[x - 1][y]
+32. beq R11 R0 49
+33. addi R12 R1 1		; constant x + 1
+34. mul R13 R12 R5		; (x + 1) * (y * 20)
+35. load R14 R13		; IN_Image[x + 1][y]
+36. beq R14 R0 49
+37. subi R15 R3 1		; constant y - 1
+38. mul R16 R15 R4		; (y - 1) * 20
+39. mul R17 R1 R16		; x * ((y - 1) * 20)
+40. load R18 R17		; IN_IMAGE[x - 1][y]
+41. beq R18 R0 49
+42. addi R19 R3 1		; constant y + 1
+43. mul R20 R19 R4		; (y + 1) * 20
+44. mul R21 R1 R20		; x * ((y + 1) * 20)
+45. load R22 R21		; IN_Image[x + 1][y]
+46. beq R22 R0 49
+47. goto 50:
+48. store R6 R0			; Erode
+49. goto 52	    		; end inner-loop
+50. addi R23 R0 255		; constant 255
+51. store R6 R23
+52. addi R3 R3 1	; add 1 to y
+53. goto 7	    	; iterate loop2
+54. addi R1 R1 1	; add 1 to x
+55. goto 3		    ; iterate loop1
+56. END
+
+
