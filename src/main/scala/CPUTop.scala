@@ -39,33 +39,44 @@ class CPUTop extends Module {
   ////////////////////////////////////////////
   //Continue here with your connections
   ////////////////////////////////////////////
-
+  io.done := controlUnit.io.done
   controlUnit.io.opcode := programMemory.io.instructionRead(31, 28)
   registerFile.io.aSel := programMemory.io.instructionRead(27, 23)
   registerFile.io.bSel := programMemory.io.instructionRead(22, 18)
-  registerFile.io.writeSel := programMemory.io.instructionRead(22,18) //S-EXTEND
+   //S-EXTEND
+
+
   when(controlUnit.io.RegDst){
     registerFile.io.writeSel := programMemory.io.instructionRead(17, 8)
+  } .otherwise{
+    registerFile.io.writeSel := programMemory.io.instructionRead(22,18)
   }
+  registerFile.io.writeEnable := controlUnit.io.writeEnable
+
   when(controlUnit.io.ALUSrc){
     alu.io.c := programMemory.io.instructionRead(12, 0) //S-EXTEND
+    alu.io.xR := registerFile.io.b
   } .otherwise{
+    alu.io.c := programMemory.io.instructionRead(12, 0) //S-EXTEND
     alu.io.xR := registerFile.io.b
   }
+  dataMemory.io.writeEnable := controlUnit.io.MemWrite
   alu.io.xL := registerFile.io.a
   alu.io.ALUOp := controlUnit.io.ALUOp
   when(alu.io.status && controlUnit.io.Branch){
     programCounter.io.jump := true.B
     programCounter.io.programCounterJump := programMemory.io.address(13, 0)
+  }.otherwise{
+    programCounter.io.jump := false.B
+    programCounter.io.programCounterJump := programMemory.io.address(13, 0)
   }
+  dataMemory.io.dataWrite := registerFile.io.b
+  dataMemory.io.address := alu.io.xD
   when(controlUnit.io.MemtoReg){
     registerFile.io.writeData := dataMemory.io.address
   } .otherwise{
     registerFile.io.writeData := alu.io.xD
   }
-
-
-  //val program =
 
   //This signals are used by the tester for loading the program to the program memory, do not touch
   programMemory.io.testerAddress := io.testerProgMemAddress
