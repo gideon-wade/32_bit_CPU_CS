@@ -43,7 +43,6 @@ class CPUTop extends Module {
   controlUnit.io.opcode := programMemory.io.instructionRead(31, 28)
   registerFile.io.aSel := programMemory.io.instructionRead(27, 23)
   registerFile.io.bSel := programMemory.io.instructionRead(22, 18)
-   //S-EXTEND
 
 
   when(controlUnit.io.RegDst){
