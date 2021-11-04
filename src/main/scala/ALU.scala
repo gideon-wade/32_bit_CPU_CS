@@ -34,9 +34,11 @@ class ALU extends Module {
     }
     is("b0100".U){ //load
       io.status := false.B
+      io.xD := io.c
     }
     is("b0101".U){ //store
       io.status := false.B
+      io.xD := io.c
     }
     is("b0110".U){ //beq
       when(io.xL === io.xR){
