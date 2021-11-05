@@ -32,7 +32,7 @@ class CPUTop extends Module {
   //Connecting the modules
   programCounter.io.run := io.run
   programMemory.io.address := programCounter.io.programCounter
-  programCounter.io.stop:=controlUnit.io.done
+  programCounter.io.stop := controlUnit.io.done
 
 
 
@@ -41,20 +41,20 @@ class CPUTop extends Module {
   ////////////////////////////////////////////
   io.done := controlUnit.io.done
   controlUnit.io.opcode := programMemory.io.instructionRead(31, 28)
-  registerFile.io.aSel := programMemory.io.instructionRead(27, 23)
-  registerFile.io.bSel := programMemory.io.instructionRead(22, 18)
+  registerFile.io.aSel := programMemory.io.instructionRead(28, 23)
+  registerFile.io.bSel := programMemory.io.instructionRead(23, 18)
   when(controlUnit.io.RegDst){
-    registerFile.io.writeSel := programMemory.io.instructionRead(17, 8)
+    registerFile.io.writeSel := programMemory.io.instructionRead(18, 8)
   } .otherwise{
-    registerFile.io.writeSel := programMemory.io.instructionRead(22,18)
+    registerFile.io.writeSel := programMemory.io.instructionRead(23,18)
   }
   registerFile.io.writeEnable := controlUnit.io.writeEnable
 
   when(controlUnit.io.ALUSrc){
-    alu.io.c := programMemory.io.instructionRead(12, 0) //S-EXTEND
+    alu.io.c := programMemory.io.instructionRead(13, 0) //S-EXTEND
     alu.io.xR := registerFile.io.b
   } .otherwise{
-    alu.io.c := programMemory.io.instructionRead(12, 0) //S-EXTEND
+    alu.io.c := programMemory.io.instructionRead(13, 0) //S-EXTEND
     alu.io.xR := registerFile.io.b
   }
   dataMemory.io.writeEnable := controlUnit.io.MemWrite
@@ -87,6 +87,4 @@ class CPUTop extends Module {
   dataMemory.io.testerDataWrite := io.testerDataMemDataWrite
   dataMemory.io.testerEnable := io.testerDataMemEnable
   dataMemory.io.testerWriteEnable := io.testerDataMemWriteEnable
-
-
 }
